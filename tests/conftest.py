@@ -1,10 +1,10 @@
-from application_library import iniciar_app, encerrar_app
+from application_library import iniciar_app, encerrar_app, click_interval_minutes
 from pytest import fixture
 
 
 @fixture
 def executavel():
-    executavel_path = U'D:\\OneDrive - 5t2tj5\\Programs\\Infraestructure\\System Access Control\\mouseclicker.exe'
+    executavel_path = U'C:\\Users\\aoalmeida2\\Documents\\desktop_automation_with_test\\mouseclicker.exe'
     return executavel_path 
 
 @fixture
@@ -21,3 +21,9 @@ def contexto(executavel):
     yield app
     encerrar_app(executavel)
     return app
+
+@fixture
+def click_interval_minutes_test():
+    numero = 5
+    caminho_campo = 'FreeMouseClicker.Minutes'
+    return click_interval_minutes(caminho_campo, numero)
