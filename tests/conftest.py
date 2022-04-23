@@ -1,4 +1,4 @@
-from application_library import iniciar_app, encerrar_app, digitar, localiza_elemento, capturar_texto
+from application_library import iniciar_app, encerrar_app, digitar, localiza_elemento, capturar_texto, clicar
 from pytest import fixture
 
 
@@ -37,3 +37,8 @@ def localiza_elemento_test():
 def capturar_texto_test():
     caminho_campo = 'Free Mouse Clicker->Minutes'
     capturar_texto(caminho_campo)
+
+@fixture
+def clicar_test():
+    caminho_campo = 'Free Mouse Clicker->Minutes'
+    return clicar(caminho_campo)

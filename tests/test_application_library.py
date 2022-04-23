@@ -1,6 +1,6 @@
 from time import sleep
 from pywinauto import Application, application
-from tests.conftest import executavel as executavel, contexto as contexto
+from tests.conftest import executavel as executavel, contexto as contexto, clicar_test as clicar_test
 
 
 def test_quando_a_aplicacao_iniciar_deve_retornar_um_objeto_tipo_application(contexto):
@@ -19,4 +19,6 @@ def test_quando_o_campo_minutes_receber_um_valor_o_mesmo_campo_deve_retornar_o_v
     campo_minutes = digitar_test
     assert campo_minutes == valor
 
-# clique
+def test_quando_clicar_em_um_botao_deve_retornar_verdadeiro(contexto, clicar_test):
+    retorno_clique = clicar_test
+    assert retorno_clique == True
