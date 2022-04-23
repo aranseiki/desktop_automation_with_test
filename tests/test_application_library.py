@@ -1,7 +1,7 @@
 from time import sleep
 from pywinauto import Application, application
 from tests.conftest import executavel as executavel, contexto as contexto
-# from application_library import click_interval_minutes_test
+
 
 def test_quando_a_aplicacao_iniciar_deve_retornar_um_objeto_tipo_application(contexto):
     app_esperado = type(Application())
@@ -14,7 +14,9 @@ def test_quando_a_aplicacao_iniciar_o_caminho_do_objeto_application_deve_ser_igu
     app = contexto
     assert application.process_module(app.process) == caminho
 
-def test_quando_o_campo_minutes_receber_um_valor_o_mesmo_campo_deve_guardar_o_valor_informado(contexto, click_interval_minutes_test):
+def test_quando_o_campo_minutes_receber_um_valor_o_mesmo_campo_deve_retornar_o_valor_informado(contexto, digitar_test):
     valor = 5
-    campo_minutes = click_interval_minutes_test
+    campo_minutes = digitar_test
     assert campo_minutes == valor
+
+# clique

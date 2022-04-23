@@ -1,14 +1,21 @@
 from time import sleep
-from application_library import iniciar_app, encerrar_app, click_interval_minutes
+from application_library import iniciar_app, encerrar_app, digitar, clicar
 
-
-executavel = U'C:\\Users\\aoalmeida2\\Documents\\desktop_automation_with_test\\mouseclicker.exe'
+executavel = U'D:\\OneDrive - 5t2tj5\\Documents\\Computacao e tecnologia\\Development\\desktop_automation_with_test\\mouseclicker.exe'
 
 app = iniciar_app(executavel)
 
-numero = 10
-click_interval_minutes(numero)
+valor = 10
+caminho_campo = 'Free Mouse Clicker->Minutes'
+digitar(caminho_campo, valor)
 
 sleep(3)
+caminho_campo = 'Free Mouse Clicker->Start'
+clicar(caminho_campo)
 
+sleep(3)
+caminho_campo = 'Free Mouse Clicker->Stop'
+clicar(caminho_campo)
+
+sleep(3)
 encerrar_app(executavel)
