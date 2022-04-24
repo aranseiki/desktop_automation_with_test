@@ -1,6 +1,10 @@
-from application_library import iniciar_app, encerrar_app, digitar, localiza_elemento, capturar_texto, clicar
+from application_library import aplicacao, iniciar_app, encerrar_app, digitar, localiza_elemento, capturar_texto, clicar
 from pytest import fixture
 
+
+@fixture
+def aplicacao_test():
+    return aplicacao()
 
 @fixture
 def executavel():
@@ -13,7 +17,8 @@ def iniciar_app_test(executavel):
 
 @fixture
 def encerrar_app_test(executavel):
-    return encerrar_app(executavel)
+    encerrar_app(executavel)
+    return True
 
 @fixture
 def contexto(executavel):
@@ -31,7 +36,7 @@ def digitar_test():
 @fixture
 def localiza_elemento_test():
     caminho_campo = 'Free Mouse Clicker->Minutes'
-    localiza_elemento(caminho_campo)
+    return localiza_elemento(caminho_campo)
 
 @fixture
 def capturar_texto_test():
