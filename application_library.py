@@ -2,23 +2,24 @@ from pywinauto import Application
 
 
 def aplicacao():
-    global app
-    app = Application()
-    return app
+    global APP
+    APP = Application()
+    return APP
 
 def iniciar_app(executavel):
-    app = aplicacao()
-    app.start(executavel)
-    return app
+    APP = aplicacao()
+    APP.start(executavel)
+    return APP
 
 def encerrar_app(executavel):
-    app.kill(executavel)
-    return app
+    global APP
+    APP.kill(executavel)
+    return APP
 
 def localiza_elemento(caminho_campo, static=True):
     # importa app para o escopo da função
-    global app
-    app_interno = app
+    global APP
+    app_interno = APP
 
     #trata o caminho da árvore de parantesco do app
     campo = caminho_campo.split('->')

@@ -1,6 +1,6 @@
 from time import sleep
 from pywinauto import Application, application
-from tests.conftest import executavel as executavel, contexto as contexto, clicar_test as clicar_test
+from tests.conftest import executavel, contexto, clicar_test
 
 
 def test_quando_a_aplicacao_iniciar_deve_retornar_um_objeto_tipo_application(contexto):
