@@ -101,3 +101,62 @@ def clicar(caminho_campo):
     
     # retorna o valor capturado e tratado
     return True
+
+def coletar_situacao_janela(nome_janela):
+    
+    # importa app para o escopo da função
+    global APP
+    app_interno = APP
+
+    # coleta a situacao atual da janela
+    situacao = app_interno[nome_janela].get_show_state()
+    
+    breakpoint()
+
+    # 1 - Normal
+    if situacao == 1:
+        situacao = 'normal'
+    # 2 - Minimizado
+    elif situacao == 2:
+        situacao = 'minimizado'
+    # 3 - Maximizado
+    elif situacao == 3:
+        situacao = 'maximizado'
+    # Caso não encontre as situações normal, ninimizado e maximizado
+    else:
+        # define um valor padrão
+        situacao = 'não identificado'
+
+    # retorna a situação da janela
+    return situacao
+    
+def esta_visivel(nome_janela):
+    
+    # coleta a situação atual da janela
+    situacao = coletar_situacao_janela(nome_janela)
+    
+    # define visível para situação 'maximizado' ou 'normal'
+    if situacao == 'maximizado' or situacao == 'normal':
+        situacao = 'visivel'
+    # define não visível para situação 'minimizado'
+    elif situacao == 'minimizado':
+        situacao = 'não visível'
+    # Caso não encontre as situações normal, ninimizado e maximizado
+    else:
+        # define um valor padrão
+        situacao = 'não identificado'
+    
+    # retorna a situação da janela
+    return situacao
+
+def esta_com_foco(nome_janela):
+    
+    # importa app para o escopo da função
+    global APP
+    app_interno = APP
+
+    # coleta a situacao atual de foco da janela
+    foco = app_interno[nome_janela].has_focus()
+
+    # retorna a situação coletada
+    return foco

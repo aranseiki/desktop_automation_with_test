@@ -1,3 +1,4 @@
+from turtle import isvisible
 from pywinauto import Application, application
 from tests.conftest import aplicacao_test, executavel, contexto, localiza_elemento, clicar_test
 
@@ -52,3 +53,7 @@ def test_quando_o_campo_minutes_receber_um_valor_o_mesmo_campo_deve_retornar_o_v
 def test_quando_clicar_em_um_botao_deve_retornar_verdadeiro(contexto, clicar_test):
     retorno_clique = clicar_test
     assert retorno_clique == True
+
+def test_quando_a_aplicacao_estiver_visivel_deve_retornar_verdadeiro(contexto, esta_visivel_test):
+    visivel = esta_visivel_test
+    assert visivel == True

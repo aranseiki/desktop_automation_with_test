@@ -1,4 +1,4 @@
-from application_library import aplicacao, iniciar_app, encerrar_app, digitar, localiza_elemento, capturar_texto, clicar
+from application_library import aplicacao, iniciar_app, encerrar_app, digitar, localiza_elemento, capturar_texto, clicar, esta_visivel
 from pytest import fixture
 
 
@@ -56,3 +56,7 @@ def capturar_texto_test(caminho_campo):
 @fixture
 def clicar_test(caminho_campo):
     return clicar(caminho_campo)
+
+@fixture
+def esta_visivel_test():
+    return esta_visivel()
