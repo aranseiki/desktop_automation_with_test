@@ -8,8 +8,18 @@ def aplicacao_test():
 
 @fixture
 def executavel():
-    executavel_path = U'D:\\OneDrive - 5t2tj5\\Documents\\Computacao e tecnologia\\Development\\desktop_automation_with_test\\mouseclicker.exe'
+    executavel_path = U'C:\\Users\\aoalmeida2\\Documents\\desktop_automation_with_test\\mouseclicker.exe'
     return executavel_path 
+
+@fixture
+def caminho_campo():
+    caminho_campo = 'Free Mouse Clicker->Start'
+    return caminho_campo
+
+@fixture
+def valor():
+    valor = 5
+    return valor
 
 @fixture
 def iniciar_app_test(executavel):
@@ -28,22 +38,21 @@ def contexto(executavel):
     return app
 
 @fixture
-def digitar_test():
-    valor = 5
-    caminho_campo = 'Free Mouse Clicker->Minutes'
+def digitar_test(caminho_campo, valor):
     return digitar(caminho_campo, valor)
 
 @fixture
-def localiza_elemento_test():
-    caminho_campo = 'Free Mouse Clicker->Minutes'
-    return localiza_elemento(caminho_campo)
+def localiza_elemento_estatico_test(caminho_campo):
+    return localiza_elemento(caminho_campo, static=True)
 
 @fixture
-def capturar_texto_test():
-    caminho_campo = 'Free Mouse Clicker->Minutes'
+def localiza_elemento_dinamico_test(caminho_campo):
+    return localiza_elemento(caminho_campo, static=False)
+
+@fixture
+def capturar_texto_test(caminho_campo):
     capturar_texto(caminho_campo)
 
 @fixture
-def clicar_test():
-    caminho_campo = 'Free Mouse Clicker->Minutes'
+def clicar_test(caminho_campo):
     return clicar(caminho_campo)

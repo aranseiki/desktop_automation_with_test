@@ -1,7 +1,7 @@
 from time import sleep
 from application_library import iniciar_app, encerrar_app, digitar, clicar
 
-executavel = U'D:\\OneDrive - 5t2tj5\\Documents\\Computacao e tecnologia\\Development\\desktop_automation_with_test\\mouseclicker.exe'
+executavel = U'C:\\Users\\aoalmeida2\\Documents\\desktop_automation_with_test\\mouseclicker.exe'
 
 app = iniciar_app(executavel)
 
