@@ -11,13 +11,17 @@ def aplicacao():
     # retorna o objeto application instanciado
     return APP
 
-def iniciar_app(executavel):
-    
+def iniciar_app(executavel, cmd_line=False):
     # instancia o objeto application
     APP = aplicacao()
 
+    if cmd_line == False:
+        ...
+
     # inicia o processo de execução do aplicativo passado como parâmetro
-    APP.start(executavel)
+    APP.start(cmd_line=executavel)
+
+    # breakpoint()
 
     # retorna o objeto application instanciado com o processo iniciado
     return APP
@@ -32,7 +36,7 @@ def encerrar_app(executavel):
     # retorna o objeto application com o processo encerrado
     return APP
 
-def localiza_elemento(caminho_campo, static=True):
+def localiza_elemento(caminho_campo, estatico=True):
     # importa app para o escopo da função
     global APP
     app_interno = APP
@@ -49,7 +53,7 @@ def localiza_elemento(caminho_campo, static=True):
             app_interno = app_interno.window(title=campo[0])
         
         # Se index for igual ao último elemento
-        elif (index == (len(campo) - 1)) and (static == False):
+        elif (index == (len(campo) - 1)) and (estatico == False):
             
             # coleta o elemento informado e concatena 'Edit' no final
             app_interno = app_interno[campo[index] + 'Edit']
@@ -68,25 +72,25 @@ def localiza_elemento(caminho_campo, static=True):
 
 def digitar(caminho_campo, valor):
     # Define liberação para digitar
-    static=False
+    estatico=False
 
     # localiza o elemento até o final da árvore de parantesco do app
-    app_interno = localiza_elemento(caminho_campo, static)
+    app_interno = localiza_elemento(caminho_campo, estatico)
     
     # digita o valor no campo localizado
     app_interno.type_keys(valor)
 
     # trata o valor capturado conforme o tipo do valor de entrada
-    valor_retornado = type(valor)(capturar_texto(caminho_campo, static))
+    valor_retornado = type(valor)(capturar_texto(caminho_campo, estatico))
     
     # retorna o valor capturado e tratado
     return valor_retornado
 
-def capturar_texto(caminho_campo, static=True):
+def capturar_texto(caminho_campo, estatico=True):
     # localiza o elemento até o final da árvore de parantesco do app
-    app_interno = localiza_elemento(caminho_campo, static)
+    app_interno = localiza_elemento(caminho_campo, estatico)
         
-    #captura o texto do campo localizado
+    # captura o texto do campo localizado
     valor_capturado = app_interno.texts()[0]
     
     # retorna o valor capturado
@@ -103,15 +107,12 @@ def clicar(caminho_campo):
     return True
 
 def coletar_situacao_janela(nome_janela):
-    
     # importa app para o escopo da função
     global APP
     app_interno = APP
 
     # coleta a situacao atual da janela
-    situacao = app_interno[nome_janela].get_show_state()
-    
-    breakpoint()
+    situacao = app_interno.window(title=nome_janela).get_show_state()
 
     # 1 - Normal
     if situacao == 1:
@@ -131,7 +132,6 @@ def coletar_situacao_janela(nome_janela):
     return situacao
     
 def esta_visivel(nome_janela):
-    
     # coleta a situação atual da janela
     situacao = coletar_situacao_janela(nome_janela)
     
@@ -150,13 +150,109 @@ def esta_visivel(nome_janela):
     return situacao
 
 def esta_com_foco(nome_janela):
-    
     # importa app para o escopo da função
     global APP
     app_interno = APP
 
     # coleta a situacao atual de foco da janela
-    foco = app_interno[nome_janela].has_focus()
+    foco = app_interno.window(title=nome_janela).has_focus()
 
     # retorna a situação coletada
     return foco
+
+def minimizar_janela(nome_janela):
+    # importa app para o escopo da função
+    global APP
+    app_interno = APP
+
+    # miniminiza a janela informada
+    app_interno.window(title=nome_janela).minimize()
+
+    # retorna verdadeiro confirmando a execução da ação
+    return True
+
+def maximizar_janela(nome_janela):
+    # importa app para o escopo da função
+    global APP
+    app_interno = APP
+
+    # maximiza a janela informada
+    app_interno.window(title=nome_janela).maximize()
+
+    # retorna verdadeiro confirmando a execução da ação
+    return True
+
+def restaurar_janela(nome_janela):
+    # importa app para o escopo da função
+    global APP
+    app_interno = APP
+
+    # restaura a janela informada
+    app_interno.window(title=nome_janela).restore()
+
+    # retorna verdadeiro confirmando a execução da ação
+    return True
+
+def coletar_dados_selecao(caminho_campo):
+    # define estático como falso para trabalhar com elemento dinâmico
+    estatico = False
+
+    # localiza o elemento até o final da árvore de parantesco do app
+    app_interno = localiza_elemento(caminho_campo, estatico)
+        
+    # captura o texto do campo localizado
+    valor_capturado = app_interno.item_texts()
+
+    # retorna o valor capturado
+    return valor_capturado
+
+def coletar_dado_selecionado(caminho_campo):
+    # define estático como falso para trabalhar com elemento dinâmico
+    estatico = False
+
+    # localiza o elemento até o final da árvore de parantesco do app
+    app_interno = localiza_elemento(caminho_campo, estatico)
+        
+    # captura o texto do campo localizado
+    valor_capturado = app_interno.selected_text()
+
+    # retorna o valor capturado
+    return valor_capturado
+
+def selecionar_em_campo_selecao(caminho_campo, item):
+    # define estático como falso para trabalhar com elemento dinâmico
+    estatico = False
+
+    # localiza o elemento até o final da árvore de parantesco do app
+    app_interno = localiza_elemento(caminho_campo, estatico)
+
+    # seleciona o item informado
+    app_interno.select(item)
+
+    # captura o texto do campo localizado
+    valor_capturado = coletar_dado_selecionado(caminho_campo)
+
+    # retorna o valor capturado
+    return valor_capturado
+
+def selecionar_menu(nome_janela, caminho_menu):
+    # importa app para o escopo da função
+    global APP
+    app_interno = APP
+
+    # percorre e clica no menu informado
+    app_interno.window(title=nome_janela).menu_select(caminho_menu)
+
+    # retorna verdadeiro confirmando a execução da ação
+    return True
+
+def fechar_janela(nome_janela):
+    # importa app para o escopo da função
+    global APP
+    app_interno = APP
+
+    # fecha a janela informada
+    app_interno.window(title=nome_janela).close() 
+
+    # retorna verdadeiro confirmando a execução da ação
+    return True
