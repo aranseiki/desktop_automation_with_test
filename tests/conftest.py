@@ -16,15 +16,15 @@ def aplicacao_test():
 
 @fixture
 def executavel():
-    executavel_path = U'C:\\Users\\aoalmeida2\\Documents\\\
-        desktop_automation_with_test\\mouseclicker.exe'
+    executavel_path = U'C:\\Users\\aoalmeida2\\Documents\\'\
+        + 'desktop_automation_with_test\\mouseclicker.exe'
     return executavel_path
 
 
 @fixture
 def executavel_mouseclicker():
-    executavel_path = U'C:\\Users\\aoalmeida2\\Documents\\\
-        desktop_automation_with_test\\mouseclicker.exe'
+    executavel_path = U'C:\\Users\\aoalmeida2\\Documents\\'\
+        + 'desktop_automation_with_test\\mouseclicker.exe'
     return executavel_path
 
 

@@ -7,7 +7,7 @@ from lib.application_library import (
 
 
 executavel = U'C:\\Users\\aoalmeida2\\Documents\\\
-    desktop_automation_with_test\\mouseclicker.exe'
+desktop_automation_with_test\\mouseclicker.exe'
 
 app = iniciar_app(executavel)
 
