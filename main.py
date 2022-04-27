@@ -1,11 +1,13 @@
 from time import sleep
-from application_library import (
-    iniciar_app, encerrar_app, digitar, 
-    clicar, esta_visivel, coletar_situacao_janela, 
-    maximizar_janela, restaurar_janela, coletar_dados_selecao
+from lib.application_library import (
+    iniciar_app, encerrar_app, digitar,
+    clicar, coletar_situacao_janela, restaurar_janela,
+    coletar_dados_selecao
 )
 
-executavel = U'C:\\Users\\aoalmeida2\\Documents\\desktop_automation_with_test\\mouseclicker.exe'
+
+executavel = U'C:\\Users\\aoalmeida2\\Documents\\\
+    desktop_automation_with_test\\mouseclicker.exe'
 
 app = iniciar_app(executavel)
 
