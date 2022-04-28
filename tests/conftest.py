@@ -1,4 +1,4 @@
-from lib.application_library import (
+from lib.application_utils import (
     aplicacao, iniciar_app, encerrar_app,
     digitar, localiza_elemento, capturar_texto,
     clicar, esta_visivel, coletar_situacao_janela,
