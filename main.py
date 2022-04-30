@@ -6,15 +6,14 @@ from lib.application_utils import (
 )
 from lib.python_utils import logging_msg
 
-executavel = U'C:\\Users\\aoalmeida2\\Documents\\\
-desktop_automation_with_test\\mouseclicker.exe'
+executavel = U'D:\\OneDrive - 5t2tj5\\Documents\\Computacao e \
+tecnologia\\Development\\desktop_automation_with_test\\mouseclicker.exe'
 
 app = iniciar_app(executavel)
 
-mensagem = '123'
 message = 'teste'
-level = 'debug'
-filename = 'arquivo.txt'
+level = 'error'
+filename = '.\\logs\\log.txt'
 filemode = 'a'
 logged = logging_msg(message, level, filename, filemode)
 

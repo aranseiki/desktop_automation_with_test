@@ -1,6 +1,15 @@
-def logging_msg(message, level, filename=None, filemode=None, encoding=None, format=None, handlers=None):
+def logging_msg(
+    message, level, filename=None,
+    filemode=None, encoding=None, format=None,
+    handlers=None
+):
     # import logging resources
-    from logging import basicConfig, debug, info, warning, error, critical, DEBUG, INFO, WARNING, ERROR, CRITICAL
+    from logging import (
+        basicConfig, debug, info,
+        warning, error, critical,
+        DEBUG, INFO, WARNING,
+        ERROR, CRITICAL
+    )
     
     # define level
     level = level.upper()
@@ -31,3 +40,12 @@ def logging_msg(message, level, filename=None, filemode=None, encoding=None, for
 
     # return message and level
     return (message, level)
+
+
+def create_path(path):
+    from pathlib import Path
+    for path_iter in list(Path(path).absolute().parents):
+        if not path_iter.exists():
+            path_iter.mkdir()
+    Path(path).mkdir()
+    return True
