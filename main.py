@@ -1,6 +1,3 @@
-from cgitb import handler
-from distutils.debug import DEBUG
-from distutils.log import ERROR, INFO, debug
 from time import sleep
 from lib.application_utils import (
     iniciar_app, encerrar_app, digitar,
