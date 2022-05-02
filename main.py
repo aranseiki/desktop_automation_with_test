@@ -1,13 +1,19 @@
+from distutils.command.config import config
 from time import sleep
 from lib.application_utils import (
     iniciar_app, encerrar_app, digitar,
     clicar, coletar_situacao_janela, restaurar_janela,
     coletar_dados_selecao
 )
-from lib.python_utils import logging_msg
+from lib.python_utils import logging_msg, variavel_ambiente
+from configparser import ConfigParser
 
-executavel = U'D:\\OneDrive - 5t2tj5\\Documents\\Computacao e \
-tecnologia\\Development\\desktop_automation_with_test\\mouseclicker.exe'
+
+config = ConfigParser()
+config.read('env.ini')
+config_padrao = dict(config['padrao'])
+executavel = config_padrao['executavel']
+
 
 app = iniciar_app(executavel)
 

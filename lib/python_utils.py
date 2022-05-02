@@ -42,10 +42,15 @@ def logging_msg(
     return (message, level)
 
 
-def create_path(path):
+def criar_pasta(caminho):
     from pathlib import Path
-    for path_iter in list(Path(path).absolute().parents):
-        if not path_iter.exists():
-            path_iter.mkdir()
-    Path(path).mkdir()
+    for caminho_iteravel in list(Path(caminho).absolute().parents):
+        if not caminho_iteravel.exists():
+            caminho_iteravel.mkdir()
+    Path(caminho).mkdir()
     return True
+
+
+def variavel_ambiente(nome_variavel):
+    import os
+    return os.environ.get(nome_variavel)
