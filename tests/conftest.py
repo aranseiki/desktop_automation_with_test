@@ -6,6 +6,7 @@ from lib.application_utils import (
     coletar_dados_selecao, coletar_dado_selecionado,
     selecionar_em_campo_selecao, selecionar_menu, fechar_janela
 )
+from lib.python_utils import excluir_pasta, criar_pasta
 from pytest import fixture
 
 
@@ -180,3 +181,39 @@ def selecionar_menu_test():
 def fechar_janela_test():
     nome_janela = 'Sem título - Bloco de Notas'
     return fechar_janela(nome_janela)
+
+
+@fixture
+def caminho_pasta_exemplo():
+    caminho = 'exemplo'
+    return caminho
+
+
+@fixture
+def caminho_pasta_exemplo_2():
+    caminho = 'exemplo/exemplo2'
+    return caminho
+
+
+@fixture
+def contexto_manipulacao_pastas_vazias_excluir(caminho_pasta_exemplo):
+    caminho = caminho_pasta_exemplo
+    yield excluir_pasta(caminho)
+
+
+@fixture
+def contexto_manipulacao_pastas_vazias_criar(caminho_pasta_exemplo):
+    caminho = caminho_pasta_exemplo
+    yield criar_pasta(caminho)
+
+
+@fixture
+def contexto_manipulacao_pastas_cheias_criar(caminho_pasta_exemplo_2):
+    caminho = caminho_pasta_exemplo_2
+    yield criar_pasta(caminho)
+
+
+@fixture
+def contexto_manipulacao_pastas_cheias_excluir(caminho_pasta_exemplo_2):
+    caminho = caminho_pasta_exemplo_2
+    yield excluir_pasta(caminho, vazia = False)

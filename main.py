@@ -1,3 +1,4 @@
+"""
 from distutils.command.config import config
 from time import sleep
 from lib.application_utils import (
@@ -16,13 +17,33 @@ executavel = config_padrao['executavel']
 
 
 app = iniciar_app(executavel)
+"""
 
-message = 'teste'
-level = 'error'
+
+messaging = 'teste'
+status = 'Ok'
+level = 'critical'
 filename = '.\\logs\\log.txt'
 filemode = 'a'
-logged = logging_msg(message, level, filename, filemode)
+formating = 'nivel;data;situacao;mensagem'
+formater = '%(levelname)s;%(asctime)s;' + status + ';' + messaging
+encoding = None
+handlers = None
 
+def formater(*args, delimitador=';'):
+    lista = args
+    lista_montada = ''
+    for item in lista:
+        # breakpoint()
+        lista_montada += item + delimitador
+    print(lista_montada)
+
+formater('Ola', 'teste', 'critical', delimitador=';')
+
+# logged = logging_msg(messaging, level, filename, filemode, encoding, formater)
+# print(logged)
+
+"""
 nome_janela = 'Free Mouse Clicker'
 print(coletar_situacao_janela(nome_janela))
 
@@ -47,3 +68,4 @@ caminho_campo = 'Free Mouse Clicker->combobox'
 coletar_dados_selecao(caminho_campo)
 
 encerrar_app(executavel)
+"""
