@@ -1,12 +1,10 @@
-"""
-from distutils.command.config import config
 from time import sleep
 from lib.application_utils import (
     iniciar_app, encerrar_app, digitar,
     clicar, coletar_situacao_janela, restaurar_janela,
     coletar_dados_selecao
 )
-from lib.python_utils import logging_msg, variavel_ambiente
+from lib.python_utils import logging_msg, variavel_ambiente, formatar_log
 from configparser import ConfigParser
 
 
@@ -16,32 +14,21 @@ config_padrao = dict(config['padrao'])
 executavel = config_padrao['executavel']
 
 
-app = iniciar_app(executavel)
-"""
+# app = iniciar_app(executavel)
 
 
 messaging = 'teste'
 status = 'Ok'
+data = '%(asctime)s'
 level = 'critical'
 filename = '.\\logs\\log.txt'
 filemode = 'a'
-formating = 'nivel;data;situacao;mensagem'
-formater = '%(levelname)s;%(asctime)s;' + status + ';' + messaging
-encoding = None
+formating = formatar_log(data, status, messaging)
+encoding = 'utf8'
 handlers = None
 
-def formater(*args, delimitador=';'):
-    lista = args
-    lista_montada = ''
-    for item in lista:
-        # breakpoint()
-        lista_montada += item + delimitador
-    print(lista_montada)
-
-formater('Ola', 'teste', 'critical', delimitador=';')
-
-# logged = logging_msg(messaging, level, filename, filemode, encoding, formater)
-# print(logged)
+logged = logging_msg(messaging, level, filename, filemode, encoding, formating)
+print(logged)
 
 """
 nome_janela = 'Free Mouse Clicker'

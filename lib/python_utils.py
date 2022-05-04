@@ -1,6 +1,9 @@
+import logging
+
+
 def logging_msg(
     messaging, level, filename=None,
-    filemode=None, encoding=None, formating='',
+    filemode=None, encoding=None, formating=None,
     handlers=None
 ):
     # import logging resources
@@ -10,18 +13,31 @@ def logging_msg(
         DEBUG, INFO, WARNING,
         ERROR, CRITICAL
     )
+
+    """
+    aaa = tuple(locals()['formating'])
+    formaterr = '%(args)s'
+    
+    print(formaterr)
+
+    #formaterr = '%(asctime)s'
+    """
+    
     
     # define level
     level = level.upper()
 
     # define basic config
+    #basicConfig = basicConfig
+
     basicConfig(
         level = level,
         filename = filename,
         filemode = filemode,
         encoding = encoding,
-        format = formating
+        format = formating 
     )
+
 
     # run logging command
     if level == 'DEBUG':
@@ -76,3 +92,17 @@ def pasta_existente(caminho):
 def variavel_ambiente(nome_variavel):
     import os
     return os.environ.get(nome_variavel)
+
+
+def formatar_log(*args, delimitador=';'):
+    lista = list(args)
+    lista_montada = ''
+    lista.reverse()
+    while len(lista) > 0:
+        item = lista.pop()
+        # breakpoint()
+        if len(lista) == 0:
+            lista_montada += item
+        else:
+            lista_montada += item + delimitador
+    return '%(levelname)s;' + lista_montada

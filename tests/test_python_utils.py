@@ -1,7 +1,7 @@
 from pytest import mark
 from lib.python_utils import (
     logging_msg, criar_pasta, criar_pasta_v2,
-    excluir_pasta, pasta_existente
+    excluir_pasta, pasta_existente, formatar_log
 )
 from tests.conftest import (
     contexto_manipulacao_pastas_vazias_criar, caminho_pasta_exemplo,
@@ -34,10 +34,15 @@ def test_quando_informar_uma_mensagem_um_nivel_e_um_arquivo_deve_retornar_a_mens
 @mark.logging
 def test_quando_informar_uma_mensagem_personalizada_deve_retornar_log_com_mensagem_personalizada():
     messaging = 'teste'
-    level = 'critical'
+    status = 'Ok'
+    data = '%(asctime)s'
+    level = 'debug'
     filename = '.\\logs\\log.txt'
     filemode = 'a'
-    logged = logging_msg(messaging, level, filename, filemode, format='%(levelname)s:%(asctime)s')
+    formating = formatar_log(data, status, messaging)
+    encoding = 'utf8'
+    handlers = None
+    logged = logging_msg(messaging, level, filename, filemode, encoding, formating)
     print(logged)
     assert logged == (messaging, level.upper())
 
