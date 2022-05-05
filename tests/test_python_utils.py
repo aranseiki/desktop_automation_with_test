@@ -1,6 +1,6 @@
 from pytest import mark
 from lib.python_utils import (
-    logging_msg, criar_pasta, criar_pasta_v2,
+    logging_msg, criar_pasta,
     excluir_pasta, pasta_existente, formatar_log
 )
 from tests.conftest import (
@@ -55,13 +55,6 @@ def test_quando_informar_o_nome_da_pasta_ela_deve_ser_criada(contexto_manipulaca
 
 
 @mark.pastas
-def test_quando_informar_o_nome_da_pasta_ela_deve_ser_criada_v2(contexto_manipulacao_pastas_vazias_excluir, caminho_pasta_exemplo):
-    caminho = caminho_pasta_exemplo
-    criar_pasta_v2(caminho)
-    assert pasta_existente(caminho) == True
-
-
-@mark.pastas
 def test_quando_informar_o_nome_da_pasta_vazia_ela_deve_ser_excluida(caminho_pasta_exemplo, contexto_manipulacao_pastas_vazias_excluir):
     caminho = caminho_pasta_exemplo
     excluir_pasta(caminho)
@@ -79,3 +72,11 @@ def test_quando_informar_o_nome_da_pasta_cheia_ela_deve_ser_excluida(caminho_pas
 def test_quando_informar_o_nome_de_uma_pasta_existente_deve_retornar_true(contexto_manipulacao_pastas_vazias_criar, caminho_pasta_exemplo):
     caminho = caminho_pasta_exemplo
     assert pasta_existente(caminho) == True
+
+
+@mark.pastas
+def test_quando_informar_o_nome_de_uma_pasta_nao_existente_deve_retornar_False(caminho_pasta_exemplo):
+    caminho = caminho_pasta_exemplo
+    if pasta_existente(caminho) == True:
+        excluir_pasta(caminho)
+    assert pasta_existente(caminho) == False

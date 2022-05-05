@@ -1,6 +1,3 @@
-import logging
-
-
 def logging_msg(
     messaging, level, filename=None,
     filemode=None, encoding=None, formating=None,
@@ -13,17 +10,7 @@ def logging_msg(
         DEBUG, INFO, WARNING,
         ERROR, CRITICAL
     )
-
-    """
-    aaa = tuple(locals()['formating'])
-    formaterr = '%(args)s'
-    
-    print(formaterr)
-
-    #formaterr = '%(asctime)s'
-    """
-    
-    
+        
     # define level
     level = level.upper()
 
@@ -63,15 +50,6 @@ def criar_pasta(caminho):
     return True
 
 
-def criar_pasta_v2(caminho):
-    from pathlib import Path
-    for caminho_iteravel in list(Path(caminho).absolute().parents):
-        if not caminho_iteravel.exists():
-            caminho_iteravel.mkdir()
-    Path(caminho).mkdir()
-    return True
-
-
 def excluir_pasta(caminho, vazia : bool = True):
     if vazia == True:
         from pathlib import Path
@@ -89,9 +67,16 @@ def pasta_existente(caminho):
     return Path(caminho).exists()
 
 
-def variavel_ambiente(nome_variavel):
+def variavel_ambiente(arquivo_config='config.ini', nome_bloco_config='padrao', nome_variavel=None):
+    from configparser import ConfigParser
     import os
-    return os.environ.get(nome_variavel)
+    config = ConfigParser()
+    config.read(arquivo_config)
+    if not nome_variavel == None:
+        bloco = dict(config[nome_bloco_config])    
+        return bloco[nome_variavel]
+    else:
+        return dict(config[nome_bloco_config])
 
 
 def formatar_log(*args, delimitador=';'):
@@ -106,3 +91,8 @@ def formatar_log(*args, delimitador=';'):
         else:
             lista_montada += item + delimitador
     return '%(levelname)s;' + lista_montada
+
+
+def retornar_data_hora_atual(parametro):
+    import datetime
+    return datetime.datetime.now().strftime(parametro)
