@@ -1,36 +1,46 @@
 from pytest import fixture, mark
 from pywinauto import Application, application
+
 from tests.conftest import (
-    aplicacao_test, executavel_mouseclicker, contexto_mouseclicker, 
-    contexto_notepad, localiza_elemento, clicar_test
+    aplicacao_test,
+    clicar_test,
+    contexto_mouseclicker,
+    contexto_notepad,
+    executavel_mouseclicker,
+    localiza_elemento,
 )
 
 
 @mark.mouseclicker
 def test_quando_o_objeto_application_for_iniciado_o_mesmo_deve_retornar_um_objeto_tipo_application(
-    aplicacao_test
+    aplicacao_test,
 ):
     app_esperado = type(Application())
     app = aplicacao_test
     app_test = type(app)
     assert app_test == app_esperado
 
+
 @mark.mouseclicker
 def test_quando_a_aplicacao_iniciar_deve_retornar_um_objeto_tipo_application(
-    contexto_mouseclicker
+    contexto_mouseclicker,
 ):
     app_esperado = type(Application())
     app = contexto_mouseclicker
     app_test = type(app)
     assert app_test == app_esperado
 
+
 @mark.mouseclicker
 def test_quando_a_aplicacao_iniciar_o_caminho_do_objeto_application_deve_ser_igual_ao_informado(
     executavel_mouseclicker, contexto_mouseclicker
 ):
-    caminho = executavel_mouseclicker
+    from pathlib import Path
+
+    caminho = str(Path(executavel_mouseclicker).absolute())
     app = contexto_mouseclicker
     assert application.process_module(app.process) == caminho
+
 
 @mark.mouseclicker
 def test_quando_a_aplicacao_encerrar_deve_finalizar_o_processo(
@@ -39,6 +49,7 @@ def test_quando_a_aplicacao_encerrar_deve_finalizar_o_processo(
     app_iniciado = iniciar_app_test
     app_encerrado = encerrar_app_test
     assert app_encerrado == True
+
 
 @mark.mouseclicker
 def test_quando_procurar_por_um_elemento_deve_retornar_um_elemento_eestaticoo(
@@ -53,6 +64,7 @@ def test_quando_procurar_por_um_elemento_deve_retornar_um_elemento_eestaticoo(
         elemento_localizado_test = True
     assert elemento_localizado_test == True
 
+
 @mark.mouseclicker
 def test_quando_procurar_por_um_elemento_deve_retornar_um_elemento_dinamico(
     caminho_campo, contexto_mouseclicker, localiza_elemento_dinamico_test
@@ -66,6 +78,7 @@ def test_quando_procurar_por_um_elemento_deve_retornar_um_elemento_dinamico(
         elemento_localizado_test = True
     assert elemento_localizado_test == True
 
+
 @mark.mouseclicker
 def test_quando_o_campo_minutes_receber_um_valor_o_mesmo_campo_deve_retornar_o_valor_informado(
     contexto_mouseclicker, digitar_test
@@ -74,6 +87,7 @@ def test_quando_o_campo_minutes_receber_um_valor_o_mesmo_campo_deve_retornar_o_v
     campo_minutes = digitar_test
     assert campo_minutes == valor
 
+
 @mark.mouseclicker
 def test_quando_clicar_em_um_botao_deve_retornar_verdadeiro(
     contexto_mouseclicker, clicar_test
@@ -81,14 +95,16 @@ def test_quando_clicar_em_um_botao_deve_retornar_verdadeiro(
     retorno_clique = clicar_test
     assert retorno_clique == True
 
+
 @mark.mouseclicker
 def test_quando_a_aplicacao_estiver_visivel_deve_retornar_verdadeiro(
     contexto_mouseclicker, esta_visivel_test
 ):
     visivel = esta_visivel_test
     if visivel == 'visivel':
-        visivel = True 
+        visivel = True
     assert visivel == True
+
 
 @mark.mouseclicker
 def test_quando_a_janela_estiver_normal_deve_retornar_estado_normal(
@@ -96,6 +112,7 @@ def test_quando_a_janela_estiver_normal_deve_retornar_estado_normal(
 ):
     situacao = coletar_situacao_janela_normal_test
     assert situacao == 'normal'
+
 
 @mark.mouseclicker
 def test_quando_a_janela_estiver_minimizado_deve_retornar_estado_minimizado(
@@ -105,6 +122,7 @@ def test_quando_a_janela_estiver_minimizado_deve_retornar_estado_minimizado(
     # breakpoint()
     assert situacao == 'minimizado'
 
+
 @mark.mouseclicker
 def test_quando_a_janela_estiver_maximizada_deve_retornar_estado_maximizada(
     contexto_mouseclicker, coletar_situacao_janela_maximizada_test
@@ -112,6 +130,7 @@ def test_quando_a_janela_estiver_maximizada_deve_retornar_estado_maximizada(
     situacao = coletar_situacao_janela_maximizada_test
     # breakpoint()
     assert situacao == 'maximizado'
+
 
 @mark.mouseclicker
 def test_quando_a_janela_estiver_maximizada_deve_retornar_estado_maximizada(
@@ -121,12 +140,14 @@ def test_quando_a_janela_estiver_maximizada_deve_retornar_estado_maximizada(
     # breakpoint()
     assert situacao == 'normal'
 
+
 @mark.mouseclicker
 def test_quando_minimizar_janela_deve_retornar_true(
     contexto_mouseclicker, minimizar_janela_test
 ):
     situacao = minimizar_janela_test
     assert situacao == True
+
 
 @mark.mouseclicker
 def test_quando_maximizar_janela_deve_retornar_true(
@@ -135,12 +156,14 @@ def test_quando_maximizar_janela_deve_retornar_true(
     situacao = maximizar_janela_test
     assert situacao == True
 
+
 @mark.mouseclicker
 def test_quando_restaurar_janela_deve_retornar_true(
     contexto_mouseclicker, restaurar_janela_test
 ):
     situacao = restaurar_janela_test
     assert situacao == True
+
 
 @mark.mouseclicker
 def test_quando_coletar_dados_do_campo_de_selecao_deve_retornar_os_valores_disponviveis_para_selecao(
@@ -149,12 +172,14 @@ def test_quando_coletar_dados_do_campo_de_selecao_deve_retornar_os_valores_dispo
     dados_selecao = coletar_dados_selecao_test
     assert dados_selecao == ['Single Click', 'Double Click']
 
+
 @mark.mouseclicker
 def test_quando_coletar_o_dado_ja_selecionado_do_campo_de_selecao_deve_retornar_o_valor_coletado(
     contexto_mouseclicker, coletar_dado_selecionado_test
 ):
     dados_selecao = coletar_dado_selecionado_test
     assert dados_selecao == 'Single Click'
+
 
 @mark.mouseclicker
 def test_quando_selecionar_um_dado_do_campo_de_selecao_deve_retornar_o_texto_do_item_selecionado(
@@ -163,12 +188,14 @@ def test_quando_selecionar_um_dado_do_campo_de_selecao_deve_retornar_o_texto_do_
     dados_selecao = selecionar_em_campo_selecao_test
     assert dados_selecao == 'Single Click'
 
+
 @mark.notepad
 def test_quando_selecionar_o_menu_informado_deve_retornar_verdadeiro(
     contexto_notepad, selecionar_menu_test
 ):
     menu_selecionado = selecionar_menu_test
     return menu_selecionado == True
+
 
 @mark.notepad
 def test_quando_fechar_a_janela_informada_deve_retornar_verdadeiro(

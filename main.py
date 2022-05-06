@@ -1,18 +1,27 @@
 from time import sleep
+
 from lib.application_utils import (
-    iniciar_app, encerrar_app, digitar,
-    clicar, coletar_situacao_janela, restaurar_janela,
-    coletar_dados_selecao
+    clicar,
+    coletar_dados_selecao,
+    coletar_situacao_janela,
+    digitar,
+    encerrar_app,
+    iniciar_app,
+    restaurar_janela,
 )
 from lib.python_utils import (
-    logging_msg, variavel_ambiente, formatar_log,
-    retornar_data_hora_atual
+    formatar_log,
+    logger,
+    retornar_data_hora_atual,
+    variavel_ambiente,
 )
 
+executavel = config_padrao = variavel_ambiente(nome_variavel='executavel')
 
-executavel = config_padrao = variavel_ambiente(
-    nome_variavel='executavel'
+variavel_ambiente_sistema = variavel_ambiente(
+    nome_variavel='USERNAME', variavel_systema=True
 )
+print(variavel_ambiente_sistema)
 
 app = iniciar_app(executavel)
 
@@ -23,23 +32,12 @@ data = retornar_data_hora_atual('%d/%m/%Y')
 hora = retornar_data_hora_atual('%H:%M:%S')
 dataHora = data + ' - ' + hora
 level = 'critical'
-filename = '.\\logs\\log.txt'
+filename = './logs/log.txt'
 filemode = 'a'
-formating = formatar_log(
-    dataHora,
-    status,
-    messaging
-)
+formating = formatar_log(dataHora, status, messaging)
 encoding = 'utf8'
 
-logged = logging_msg(
-    messaging,
-    level,
-    filename,
-    filemode,
-    encoding,
-    formating
-)
+logged = logger(messaging, level, filename, filemode, encoding, formating)
 print(logged)
 
 

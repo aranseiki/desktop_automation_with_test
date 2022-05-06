@@ -59,7 +59,7 @@ def localiza_elemento(caminho_campo, estatico=True):
             app_interno = app_interno[campo[index] + 'Edit']
 
         # Se o index não for igual ao primeiro elemento
-            # nem o index for igual ao último elemento
+        # nem o index for igual ao último elemento
         else:
 
             # coleta o elemento informado e concatena 'Edit' no final
