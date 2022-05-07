@@ -1,18 +1,20 @@
+import sys
+
 from pytest import mark
 
 from lib.python_utils import (
-    abrir_arquivo_texto,
     abrir_arquivo_em_bytes,
+    abrir_arquivo_texto,
     arquivo_existente,
     criar_arquivo_texto,
     criar_pasta,
     excluir_arquivo,
     excluir_pasta,
     formatar_log,
+    ler_variavel_ambiente,
     logger,
     pasta_existente,
     retornar_data_hora_atual,
-    ler_variavel_ambiente,
 )
 from tests.conftest import (
     caminho_pasta_exemplo,
@@ -24,8 +26,6 @@ from tests.conftest import (
     contexto_manipulacao_pastas_vazias_criar,
     contexto_manipulacao_pastas_vazias_excluir,
 )
-
-import sys
 
 
 @mark.logging
@@ -132,14 +132,18 @@ def test_quando_informar_um_arquivo_qualquer_deve_retornar_o_conteudo_dele_em_by
 
 
 @mark.arquivos
-def test_quando_informar_um_arquivo_de_texto_txt_nao_existente_deve_criar_o_mesmo_arquivo(caminho_arquivo, contexto_manipulacao_arquivo_excluir):
+def test_quando_informar_um_arquivo_de_texto_txt_nao_existente_deve_criar_o_mesmo_arquivo(
+    caminho_arquivo, contexto_manipulacao_arquivo_excluir
+):
     caminho = caminho_arquivo
     conteudo = criar_arquivo_texto(caminho)
     assert conteudo == True
 
 
 @mark.arquivos
-def test_quando_informar_um_arquivo_de_texto_txt_que_existente_deve_true(caminho_arquivo, contexto_manipulacao_arquivo_criar):
+def test_quando_informar_um_arquivo_de_texto_txt_que_existente_deve_true(
+    caminho_arquivo, contexto_manipulacao_arquivo_criar
+):
     caminho = caminho_arquivo
     assert arquivo_existente(caminho) == True
 
@@ -147,7 +151,7 @@ def test_quando_informar_um_arquivo_de_texto_txt_que_existente_deve_true(caminho
 @mark.variavel_ambiente
 def test_quando_informar_cabecalho_de_um_bloco_de_variavel_de_ambiente_no_arquivo_deve_retornar_um_dicionario_das_variaveis():
     bloco_teste = ler_variavel_ambiente(
-        arquivo_config='tests\config_test.ini', nome_bloco_config='teste'
+        arquivo_config='tests/config_test.ini', nome_bloco_config='teste'
     )
     assert bloco_teste == {
         'variavel_teste': 'valor_teste',
@@ -158,7 +162,7 @@ def test_quando_informar_cabecalho_de_um_bloco_de_variavel_de_ambiente_no_arquiv
 @mark.variavel_ambiente
 def test_quando_informar_um_cabecalho_de_um_bloco_e_uma_variavel_de_ambiente_no_arquivo_deve_retornar_o_valor_correspondente():
     bloco_teste = ler_variavel_ambiente(
-        arquivo_config='tests\config_test.ini',
+        arquivo_config='tests/config_test.ini',
         nome_bloco_config='teste',
         nome_variavel='variavel_teste',
     )
@@ -167,13 +171,15 @@ def test_quando_informar_um_cabecalho_de_um_bloco_e_uma_variavel_de_ambiente_no_
 
 
 @mark.variavel_ambiente
-@mark.xfail(not sys.platform == 'win32', reason='variável de sistema do Windows')
+@mark.xfail(
+    not sys.platform == 'win32', reason='variável de sistema do Windows'
+)
 def test_quando_informar_uma_variavel_de_ambiente_de_sistema_no_windows_deve_retornar_o_valor_correspondente():
     bloco_teste = ler_variavel_ambiente(
         nome_variavel='windir', variavel_systema=True
     )
 
-    assert bloco_teste == 'C:\Windows'
+    assert bloco_teste.upper() == 'C:\WINDOWS'
 
 
 @mark.data_hora_atual
@@ -186,5 +192,5 @@ def test_ao_informar_um_determinado_parametro_deve_retornar_a_data_atual():
 @mark.data_hora_atual
 def test_ao_informar_um_determinado_parametro_deve_retornar_a_hora_atual():
     parametro = '%H'
-    data_teste = retornar_data_hora_atual(parametro)
-    assert data_teste == '15'
+    hora_teste = retornar_data_hora_atual(parametro)
+    assert hora_teste == '22'

@@ -26,8 +26,6 @@ def logger(
     level = level.upper()
 
     # define basic config
-    # basicConfig = basicConfig
-
     basicConfig(
         level=level,
         filename=filename,
@@ -74,6 +72,7 @@ def excluir_pasta(caminho, vazia: bool = True):
         rmtree(caminho)
     return True
 
+
 # falta testar
 def excluir_arquivo(caminho):
     from pathlib import Path
@@ -81,19 +80,19 @@ def excluir_arquivo(caminho):
     arquivo = Path(caminho)
     if arquivo.exists():
         arquivo.unlink()
-    
+
     return True
 
 
 def pasta_existente(caminho):
     from pathlib import Path
-    
-    if Path(caminho).is_dir == True:
-        return Path(caminho).exists()
+
+    return Path(caminho).exists()
 
 
 def arquivo_existente(caminho):
     from pathlib import Path
+
     if Path(caminho).is_file() == True:
         return Path(caminho).exists()
 
@@ -112,14 +111,18 @@ def abrir_arquivo_em_bytes(caminho):
     return arquivo
 
 
-def criar_arquivo_texto(caminho, data='',  encoding='utf8'):
+def criar_arquivo_texto(caminho, data='', encoding='utf8'):
     from pathlib import Path
 
     arquivo = Path(caminho).write_text(encoding=encoding, data=data)
     return True
 
+
 # copiar pasta
+# recortar pasta
 # copiar arquivo
+# recortar arquivo
+
 
 def ler_variavel_ambiente(
     arquivo_config='config.ini',

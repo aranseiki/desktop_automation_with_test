@@ -1,3 +1,5 @@
+import platform
+
 from pytest import fixture, mark
 from pywinauto import Application, application
 
@@ -190,6 +192,10 @@ def test_quando_selecionar_um_dado_do_campo_de_selecao_deve_retornar_o_texto_do_
 
 
 @mark.notepad
+@mark.xfail(
+    platform.uname().version == '10.0.22000',
+    reason='variável de sistema do Windows 10, não funciona no Win11',
+)
 def test_quando_selecionar_o_menu_informado_deve_retornar_verdadeiro(
     contexto_notepad, selecionar_menu_test
 ):
@@ -198,6 +204,10 @@ def test_quando_selecionar_o_menu_informado_deve_retornar_verdadeiro(
 
 
 @mark.notepad
+@mark.xfail(
+    platform.uname().version == '10.0.22000',
+    reason='variável de sistema do Windows 10, não funciona no Win11',
+)
 def test_quando_fechar_a_janela_informada_deve_retornar_verdadeiro(
     contexto_notepad, selecionar_menu_test, fechar_janela_test
 ):

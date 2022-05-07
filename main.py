@@ -1,5 +1,7 @@
+import platform
 from time import sleep
 
+platform.architecture()
 from lib.application_utils import (
     clicar,
     coletar_dados_selecao,
