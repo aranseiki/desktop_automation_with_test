@@ -73,7 +73,6 @@ def excluir_pasta(caminho, vazia: bool = True):
     return True
 
 
-# falta testar
 def excluir_arquivo(caminho):
     from pathlib import Path
 
@@ -93,8 +92,7 @@ def pasta_existente(caminho):
 def arquivo_existente(caminho):
     from pathlib import Path
 
-    if Path(caminho).is_file() == True:
-        return Path(caminho).exists()
+    return Path(caminho).exists()
 
 
 def abrir_arquivo_texto(caminho, encoding='utf8'):
@@ -118,10 +116,84 @@ def criar_arquivo_texto(caminho, data='', encoding='utf8'):
     return True
 
 
+def coletar_nome_arquivo(caminho):
+    from pathlib import Path
+
+    arquivo = Path(caminho).stem
+    return arquivo
+
+
+def coletar_extensao_arquivo(caminho):
+    from pathlib import Path
+
+    arquivo = Path(caminho).suffix
+    return arquivo
+
+
+# falta testar
+def retornar_arquivos_em_pasta(caminho, filtro):
+    from pathlib import Path
+
+    arquivo = Path(caminho).glob(filtro)
+    return arquivo
+
+
+def renomear(caminho, nome_atual, novo_nome):
+    from pathlib import Path
+
+    nome_atual = Path(caminho) / nome_atual
+    novo_nome = Path(caminho) / novo_nome
+    if not novo_nome.exists() == True:
+        novo_nome = nome_atual.rename(novo_nome)
+    else:
+        return False
+    return novo_nome
+
+
+def recortar(caminho_atual, caminho_novo):
+    from pathlib import Path
+    caminho_atual = Path(caminho_atual)
+    caminho_novo = Path(caminho_novo)
+    if not caminho_novo.exists() == True:
+        caminho_novo = caminho_atual.rename(caminho_novo)
+    else:
+        return False
+    return caminho_novo
+
+
+def copiar_arquivo(arquivo, caminho_destino):
+    from pathlib import Path
+    arquivo = Path(arquivo)
+    if arquivo.exists() == True:
+        arquivo = arquivo.absolute()
+    else:
+        return False
+    caminho_destino = Path(caminho_destino)
+    if caminho_destino.exists() == True:
+        from shutil import copy2
+        caminho_destino = copy2(arquivo, caminho_destino)
+        # caminho_destino = copytree(arquivo, caminho_destino) # para pastas
+    else:
+        return False
+    return caminho_destino
+
+
 # copiar pasta
-# recortar pasta
-# copiar arquivo
-# recortar arquivo
+def copiar_pasta(arquivo, caminho_destino):
+    from pathlib import Path
+    arquivo = Path(arquivo)
+    if arquivo.exists() == True:
+        arquivo = arquivo.absolute()
+    else:
+        return False
+    caminho_destino = Path(caminho_destino)
+    if caminho_destino.exists() == True:
+        from shutil import copytree
+        
+        caminho_destino = copytree(arquivo, caminho_destino)
+    else:
+        return False
+    return caminho_destino
 
 
 def ler_variavel_ambiente(
@@ -151,7 +223,6 @@ def formatar_log(*args, delimitador=';'):
     lista.reverse()
     while len(lista) > 0:
         item = lista.pop()
-        # breakpoint()
         if len(lista) == 0:
             lista_montada += item
         else:

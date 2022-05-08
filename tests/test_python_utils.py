@@ -6,6 +6,9 @@ from lib.python_utils import (
     abrir_arquivo_em_bytes,
     abrir_arquivo_texto,
     arquivo_existente,
+    coletar_extensao_arquivo,
+    coletar_nome_arquivo,
+    copiar_arquivo,
     criar_arquivo_texto,
     criar_pasta,
     excluir_arquivo,
@@ -14,11 +17,16 @@ from lib.python_utils import (
     ler_variavel_ambiente,
     logger,
     pasta_existente,
+    recortar,
+    renomear,
     retornar_data_hora_atual,
 )
 from tests.conftest import (
+    arquivo_exemplo,
+    arquivo_exemplo_2,
     caminho_pasta_exemplo,
     caminho_pasta_exemplo_2,
+    caminho_raiz, 
     contexto_manipulacao_arquivo_criar,
     contexto_manipulacao_arquivo_excluir,
     contexto_manipulacao_pastas_cheias_criar,
@@ -117,6 +125,43 @@ def test_quando_informar_o_nome_de_uma_pasta_nao_existente_deve_retornar_false(
     assert pasta_existente(caminho) == False
 
 
+@mark.pastas
+def test_quando_informar_uma_pasta_existente_deve_renomear_para_o_novo_nome_informado(
+    caminho_raiz, caminho_pasta_exemplo_3, caminho_pasta_exemplo_4, contexto_manipulacao_pastas_renomear
+):
+    from pathlib import Path
+
+    caminho_raiz = caminho_raiz
+    nome_atual = caminho_pasta_exemplo_3
+    nome_novo = caminho_pasta_exemplo_4
+    pasta_renomeada = renomear(caminho_raiz, nome_atual, nome_novo)
+    assert pasta_renomeada == Path(caminho_raiz + nome_novo)
+
+
+@mark.pastas
+def test_quando_informar_uma_pasta_existente_deve_recortar_e_colar_no_caminho_informado(
+    caminho_pasta_exemplo_4, caminho_pasta_exemplo_5, contexto_manipulacao_pastas_recortar
+):
+    from pathlib import Path
+
+    caminho_atual = caminho_pasta_exemplo_4
+    caminho_novo = caminho_pasta_exemplo_5
+    arquivo_recortado = recortar(caminho_atual, caminho_novo)
+    assert arquivo_recortado == Path(caminho_novo)
+
+
+@mark.pastas
+def test_quando_informar_uma_pasta_existente_deve_copiar_e_colar_no_caminho_informado(
+    caminho_arquivo, caminho_pasta_exemplo, caminho_pasta_exemplo_3, contexto_manipulacao_pasta_copiar
+):
+    from pathlib import Path
+
+    pasta = caminho_pasta_exemplo
+    caminho_destino = caminho_pasta_exemplo_3
+    arquivo_copiado = copiar_arquivo(pasta, caminho_destino)
+    assert Path(arquivo_copiado) == Path(caminho_destino) / pasta
+
+
 @mark.arquivos
 def test_quando_informar_um_arquivo_de_texto_txt_deve_retornar_o_conteudo_dele():
     caminho = 'tests/arquivo_test.txt'
@@ -141,11 +186,75 @@ def test_quando_informar_um_arquivo_de_texto_txt_nao_existente_deve_criar_o_mesm
 
 
 @mark.arquivos
-def test_quando_informar_um_arquivo_de_texto_txt_que_existente_deve_true(
+def test_quando_informar_um_arquivo_existente_deve_true(
     caminho_arquivo, contexto_manipulacao_arquivo_criar
 ):
     caminho = caminho_arquivo
     assert arquivo_existente(caminho) == True
+
+
+@mark.arquivos
+def test_quando_informar_um_arquivo_existente_o_mesmo_arquivo_deve_ser_excluido(
+    caminho_arquivo, contexto_manipulacao_arquivo_criar
+):
+    caminho = caminho_arquivo
+    excluir_arquivo(caminho)
+    assert arquivo_existente(caminho) == False
+
+
+@mark.arquivos
+def test_quando_informar_um_arquivo_existente_deve_retornar_o_nome_dele(
+    caminho_arquivo, contexto_manipulacao_arquivo_criar
+):
+    caminho = caminho_arquivo
+    nome_arquivo = coletar_nome_arquivo(caminho)
+    assert nome_arquivo == 'novo_arquivo_test'
+
+
+@mark.arquivos
+def test_quando_informar_um_arquivo_existente_deve_retornar_a_extensao_dele(
+    caminho_arquivo, contexto_manipulacao_arquivo_criar
+):
+    caminho = caminho_arquivo
+    extensao_arquivo = coletar_extensao_arquivo(caminho)
+    assert extensao_arquivo == '.txt'
+
+
+@mark.arquivos
+def test_quando_informar_um_arquivo_existente_deve_renomear_para_o_novo_nome_informado(
+    caminho_raiz, arquivo_exemplo, arquivo_exemplo_2, contexto_manipulacao_arquivo_criar_2
+):
+    from pathlib import Path
+
+    caminho = caminho_raiz
+    nome_arquivo = arquivo_exemplo
+    novo_nome = arquivo_exemplo_2
+    arquivo_renomeado = renomear(caminho, nome_arquivo, novo_nome)
+    assert arquivo_renomeado == Path(caminho_raiz + novo_nome)
+
+
+@mark.arquivos
+def test_quando_informar_um_arquivo_existente_deve_recortar_e_colar_no_caminho_informado(
+    caminho_arquivo, caminho_arquivo_2, contexto_manipulacao_arquivo_criar_3
+):
+    from pathlib import Path
+
+    caminho_atual = caminho_arquivo
+    caminho_novo = caminho_arquivo_2
+    arquivo_recortado = recortar(caminho_atual, caminho_novo)
+    assert arquivo_recortado == Path(caminho_novo)
+
+
+@mark.arquivos
+def test_quando_informar_um_arquivo_existente_deve_copiar_e_colar_no_caminho_informado(
+    caminho_arquivo, caminho_pasta_exemplo, contexto_manipulacao_arquivo_copiar
+):
+    from pathlib import Path
+
+    arquivo = caminho_arquivo
+    caminho_destino = caminho_pasta_exemplo
+    arquivo_copiado = copiar_arquivo(arquivo, caminho_destino)
+    assert Path(arquivo_copiado) == Path(caminho_destino) / arquivo
 
 
 @mark.variavel_ambiente
