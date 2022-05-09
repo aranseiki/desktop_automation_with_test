@@ -9,6 +9,7 @@ from lib.python_utils import (
     coletar_extensao_arquivo,
     coletar_nome_arquivo,
     copiar_arquivo,
+    copiar_pasta,
     criar_arquivo_texto,
     criar_pasta,
     excluir_arquivo,
@@ -19,6 +20,7 @@ from lib.python_utils import (
     pasta_existente,
     recortar,
     renomear,
+    retornar_arquivos_em_pasta,
     retornar_data_hora_atual,
 )
 from tests.conftest import (
@@ -26,7 +28,7 @@ from tests.conftest import (
     arquivo_exemplo_2,
     caminho_pasta_exemplo,
     caminho_pasta_exemplo_2,
-    caminho_raiz, 
+    caminho_raiz,
     contexto_manipulacao_arquivo_criar,
     contexto_manipulacao_arquivo_excluir,
     contexto_manipulacao_pastas_cheias_criar,
@@ -127,7 +129,10 @@ def test_quando_informar_o_nome_de_uma_pasta_nao_existente_deve_retornar_false(
 
 @mark.pastas
 def test_quando_informar_uma_pasta_existente_deve_renomear_para_o_novo_nome_informado(
-    caminho_raiz, caminho_pasta_exemplo_3, caminho_pasta_exemplo_4, contexto_manipulacao_pastas_renomear
+    caminho_raiz,
+    caminho_pasta_exemplo_3,
+    caminho_pasta_exemplo_4,
+    contexto_manipulacao_pastas_renomear,
 ):
     from pathlib import Path
 
@@ -140,7 +145,9 @@ def test_quando_informar_uma_pasta_existente_deve_renomear_para_o_novo_nome_info
 
 @mark.pastas
 def test_quando_informar_uma_pasta_existente_deve_recortar_e_colar_no_caminho_informado(
-    caminho_pasta_exemplo_4, caminho_pasta_exemplo_5, contexto_manipulacao_pastas_recortar
+    caminho_pasta_exemplo_4,
+    caminho_pasta_exemplo_5,
+    contexto_manipulacao_pastas_recortar,
 ):
     from pathlib import Path
 
@@ -152,14 +159,47 @@ def test_quando_informar_uma_pasta_existente_deve_recortar_e_colar_no_caminho_in
 
 @mark.pastas
 def test_quando_informar_uma_pasta_existente_deve_copiar_e_colar_no_caminho_informado(
-    caminho_arquivo, caminho_pasta_exemplo, caminho_pasta_exemplo_3, contexto_manipulacao_pasta_copiar
+    caminho_arquivo,
+    caminho_pasta_exemplo,
+    caminho_pasta_exemplo_3,
+    contexto_manipulacao_pasta_copiar,
 ):
     from pathlib import Path
 
     pasta = caminho_pasta_exemplo
     caminho_destino = caminho_pasta_exemplo_3
-    arquivo_copiado = copiar_arquivo(pasta, caminho_destino)
-    assert Path(arquivo_copiado) == Path(caminho_destino) / pasta
+    arquivo_copiado = copiar_pasta(pasta, caminho_destino)
+    assert arquivo_copiado == Path(caminho_destino) / pasta
+
+
+@mark.pastas
+def test_quando_informar_uma_pasta_existente_deve_retornar_os_arquivos_dentro_desta_pasta(
+    caminho_pasta_exemplo,
+    arquivo_exemplo_2,
+    contexto_manipulacao_pasta_mostar_arquivos,
+):
+    from pathlib import Path
+
+    caminho = caminho_pasta_exemplo
+    primeiro_arquivo = arquivo_exemplo_2
+    # filtro = caminho_pasta_exemplo_3
+    arquivo_copiado = retornar_arquivos_em_pasta(caminho)
+    assert arquivo_copiado[0] == Path(caminho_pasta_exemplo) / primeiro_arquivo
+
+
+@mark.pastas
+def test_quando_informar_uma_pasta_existente_e_um_filtro_de_pesquisa_deve_retornar_os_arquivos_dentro_desta_pasta_correspondentes_ao_filtro(
+    caminho_pasta_exemplo,
+    arquivo_exemplo_2,
+    contexto_manipulacao_pasta_mostar_arquivos,
+):
+    from pathlib import Path
+
+    caminho = caminho_pasta_exemplo
+    primeiro_arquivo = arquivo_exemplo_2
+    # filtro = caminho_pasta_exemplo_3
+    arquivo_copiado = retornar_arquivos_em_pasta(caminho, filtro='*renomeado*')
+    assert arquivo_copiado[0] == Path(caminho_pasta_exemplo) / primeiro_arquivo
 
 
 @mark.arquivos
@@ -222,7 +262,10 @@ def test_quando_informar_um_arquivo_existente_deve_retornar_a_extensao_dele(
 
 @mark.arquivos
 def test_quando_informar_um_arquivo_existente_deve_renomear_para_o_novo_nome_informado(
-    caminho_raiz, arquivo_exemplo, arquivo_exemplo_2, contexto_manipulacao_arquivo_criar_2
+    caminho_raiz,
+    arquivo_exemplo,
+    arquivo_exemplo_2,
+    contexto_manipulacao_arquivo_criar_2,
 ):
     from pathlib import Path
 
@@ -302,4 +345,4 @@ def test_ao_informar_um_determinado_parametro_deve_retornar_a_data_atual():
 def test_ao_informar_um_determinado_parametro_deve_retornar_a_hora_atual():
     parametro = '%H'
     hora_teste = retornar_data_hora_atual(parametro)
-    assert hora_teste == '22'
+    assert hora_teste == '10'

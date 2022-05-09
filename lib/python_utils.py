@@ -118,23 +118,22 @@ def criar_arquivo_texto(caminho, data='', encoding='utf8'):
 
 def coletar_nome_arquivo(caminho):
     from pathlib import Path
-
-    arquivo = Path(caminho).stem
+    if Path(caminho).exists() == True:
+        arquivo = Path(caminho).stem
     return arquivo
 
 
 def coletar_extensao_arquivo(caminho):
     from pathlib import Path
-
-    arquivo = Path(caminho).suffix
+    if Path(caminho).exists() == True:
+        arquivo = Path(caminho).suffix
     return arquivo
 
 
-# falta testar
-def retornar_arquivos_em_pasta(caminho, filtro):
+def retornar_arquivos_em_pasta(caminho, filtro='**/*'):
     from pathlib import Path
 
-    arquivo = Path(caminho).glob(filtro)
+    arquivo = list(Path(caminho).glob(filtro))
     return arquivo
 
 
@@ -152,6 +151,7 @@ def renomear(caminho, nome_atual, novo_nome):
 
 def recortar(caminho_atual, caminho_novo):
     from pathlib import Path
+
     caminho_atual = Path(caminho_atual)
     caminho_novo = Path(caminho_novo)
     if not caminho_novo.exists() == True:
@@ -163,6 +163,7 @@ def recortar(caminho_atual, caminho_novo):
 
 def copiar_arquivo(arquivo, caminho_destino):
     from pathlib import Path
+
     arquivo = Path(arquivo)
     if arquivo.exists() == True:
         arquivo = arquivo.absolute()
@@ -171,6 +172,7 @@ def copiar_arquivo(arquivo, caminho_destino):
     caminho_destino = Path(caminho_destino)
     if caminho_destino.exists() == True:
         from shutil import copy2
+
         caminho_destino = copy2(arquivo, caminho_destino)
         # caminho_destino = copytree(arquivo, caminho_destino) # para pastas
     else:
@@ -178,21 +180,23 @@ def copiar_arquivo(arquivo, caminho_destino):
     return caminho_destino
 
 
-# copiar pasta
-def copiar_pasta(arquivo, caminho_destino):
+def copiar_pasta(pasta, caminho_destino):
     from pathlib import Path
-    arquivo = Path(arquivo)
-    if arquivo.exists() == True:
-        arquivo = arquivo.absolute()
+
+    pasta_var_interna = Path(pasta)
+    if pasta_var_interna.exists() == True:
+        caminho_destino_var_interna = Path(caminho_destino)
+        if caminho_destino_var_interna.exists() == True:
+            from shutil import copytree
+
+            caminho_destino = copytree(
+                pasta, caminho_destino_var_interna / pasta
+            )
+        else:
+            return False
     else:
         return False
-    caminho_destino = Path(caminho_destino)
-    if caminho_destino.exists() == True:
-        from shutil import copytree
-        
-        caminho_destino = copytree(arquivo, caminho_destino)
-    else:
-        return False
+
     return caminho_destino
 
 

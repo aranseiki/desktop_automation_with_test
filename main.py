@@ -1,7 +1,5 @@
-import platform
 from time import sleep
 
-platform.architecture()
 from lib.application_utils import (
     clicar,
     coletar_dados_selecao,
@@ -12,58 +10,120 @@ from lib.application_utils import (
     restaurar_janela,
 )
 from lib.python_utils import (
+    abrir_arquivo_em_bytes,
+    abrir_arquivo_texto,
+    arquivo_existente,
+    coletar_extensao_arquivo,
+    coletar_nome_arquivo,
+    copiar_arquivo,
+    copiar_pasta,
+    criar_arquivo_texto,
+    criar_pasta,
+    excluir_arquivo,
+    excluir_pasta,
     formatar_log,
+    ler_variavel_ambiente,
     logger,
+    pasta_existente,
+    recortar,
+    renomear,
+    retornar_arquivos_em_pasta,
     retornar_data_hora_atual,
-    variavel_ambiente,
 )
 
-executavel = config_padrao = variavel_ambiente(nome_variavel='executavel')
 
-variavel_ambiente_sistema = variavel_ambiente(
-    nome_variavel='USERNAME', variavel_systema=True
+def cls():
+    import os
+    os.system('cls')
+
+# CRIAR UMA FUNÇÃO QUE VERIFICA SE A PASTA ESTÁ VAZIA
+
+"""
+
+ler_variavel_ambiente(
+    arquivo_config='config.ini',
+    nome_bloco_config='padrao',
+    nome_variavel=None,
+    variavel_systema=False,
 )
-print(variavel_ambiente_sistema)
 
-app = iniciar_app(executavel)
+ler_variavel_ambiente(
+    nome_variavel='USERNAME',
+    variavel_systema=True
+)
+
+executavel = ler_variavel_ambiente(nome_variavel='executavel')
+
+"""
 
 
+caminho = './exemplo'
+pasta_existente(caminho)
+criar_pasta(caminho)
+
+caminho = './'
+nome_atual = 'exemplo'
+novo_nome = 'exemplo_novo'
+renomear(caminho, nome_atual, novo_nome)
+
+caminho = './exemplo_novo'
+excluir_pasta(caminho, vazia = True)
+
+pasta = './exemplo'
+caminho_destino = './exemplo2'
+copiar_pasta(pasta, caminho_destino)
+
+caminho_atual = './exemplo'
+caminho_novo = './exemplo/exemplo2'
+recortar(caminho_atual, caminho_novo) # Erro
+
+
+"""
+caminho = './exemplo.txt'
+arquivo_existente(caminho)
+criar_arquivo_texto(caminho, data='', encoding='utf8')
+excluir_arquivo(caminho)
+abrir_arquivo_texto(caminho, encoding='utf8')
+abrir_arquivo_em_bytes(caminho)
+
+arquivo = './exemplo.txt'
+caminho_destino = 'exemplo'
+copiar_arquivo(arquivo, caminho_destino)
+
+caminho = './exemplo.txt'
+coletar_nome_arquivo(caminho)
+coletar_extensao_arquivo(caminho)
+
+caminho = './'
+nome_atual = 'exemplo.txt'
+novo_nome = 'exemplo_novo.txt'
+renomear(caminho, nome_atual, novo_nome)
+
+caminho_atual = './exemplo'
+caminho_novo = './exemplo2'
+recortar(caminho_atual, caminho_novo) # erro
+retornar_arquivos_em_pasta(caminho, filtro='**/*')
+"""
+
+"""
 messaging = 'teste'
+level = 'critical'
+filename = './logs/log.txt'
+filemode = 'a'
+encoding = 'utf8'
 status = 'Ok'
 data = retornar_data_hora_atual('%d/%m/%Y')
 hora = retornar_data_hora_atual('%H:%M:%S')
 dataHora = data + ' - ' + hora
-level = 'critical'
-filename = './logs/log.txt'
-filemode = 'a'
-formating = formatar_log(dataHora, status, messaging)
-encoding = 'utf8'
+formating = formatar_log(dataHora, status, messaging, delimitador=';')
 
-logged = logger(messaging, level, filename, filemode, encoding, formating)
-print(logged)
-
-
-nome_janela = 'Free Mouse Clicker'
-print(coletar_situacao_janela(nome_janela))
-
-valor = 10
-caminho_campo = 'Free Mouse Clicker->Minutes'
-digitar(caminho_campo, valor)
-sleep(3)
-
-caminho_campo = 'Free Mouse Clicker->Start'
-clicar(caminho_campo)
-sleep(1)
-
-nome_janela = 'Free Mouse Clicker'
-restaurar_janela(nome_janela)
-sleep(3)
-
-caminho_campo = 'Free Mouse Clicker->Stop'
-clicar(caminho_campo)
-sleep(3)
-
-caminho_campo = 'Free Mouse Clicker->combobox'
-coletar_dados_selecao(caminho_campo)
-
-encerrar_app(executavel)
+logger(
+    messaging,
+    level,
+    filename=None,
+    filemode=None,
+    encoding=None,
+    formating=None,
+    handlers=None,
+)
+"""

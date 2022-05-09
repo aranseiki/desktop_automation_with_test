@@ -249,26 +249,32 @@ def contexto_manipulacao_pastas_cheias_excluir(caminho_pasta_exemplo_2):
 
 
 @fixture
-def contexto_manipulacao_pastas_renomear(caminho_pasta_exemplo_3, caminho_pasta_exemplo_4):
+def contexto_manipulacao_pastas_renomear(
+    caminho_pasta_exemplo_3, caminho_pasta_exemplo_4
+):
     caminho3 = caminho_pasta_exemplo_3
     criar_pasta(caminho3)
-    yield 
+    yield
     excluir_pasta(caminho_pasta_exemplo_4, vazia=False)
 
 
 @fixture
-def contexto_manipulacao_pastas_recortar(caminho_pasta_exemplo_3, caminho_pasta_exemplo_4, caminho_pasta_exemplo_5):
+def contexto_manipulacao_pastas_recortar(
+    caminho_pasta_exemplo_3, caminho_pasta_exemplo_4, caminho_pasta_exemplo_5
+):
     caminho3 = caminho_pasta_exemplo_3
     caminho4 = caminho_pasta_exemplo_4
     criar_pasta(caminho3)
     criar_pasta(caminho4)
-    yield 
+    yield
     excluir_pasta(caminho_pasta_exemplo_3, vazia=False)
     excluir_pasta(caminho_pasta_exemplo_5)
 
 
 @fixture
-def contexto_manipulacao_pasta_copiar(caminho_pasta_exemplo, caminho_pasta_exemplo_3):
+def contexto_manipulacao_pasta_copiar(
+    caminho_pasta_exemplo, caminho_pasta_exemplo_3
+):
     pasta = caminho_pasta_exemplo
     if not pasta_existente(pasta) == True:
         criar_pasta(pasta)
@@ -278,6 +284,19 @@ def contexto_manipulacao_pasta_copiar(caminho_pasta_exemplo, caminho_pasta_exemp
     yield
     excluir_pasta(pasta, vazia=True)
     excluir_pasta(caminho_destino, vazia=False)
+
+
+@fixture
+def contexto_manipulacao_pasta_mostar_arquivos(
+    caminho_pasta_exemplo, caminho_raiz, arquivo_exemplo, arquivo_exemplo_2
+):
+    pasta = caminho_pasta_exemplo
+    if not pasta_existente(pasta) == True:
+        criar_pasta(pasta)
+        criar_arquivo_texto(pasta + '/' + arquivo_exemplo)
+        criar_arquivo_texto(pasta + '/' + arquivo_exemplo_2)
+    yield
+    excluir_pasta(pasta, vazia=False)
 
 
 @fixture
@@ -334,7 +353,9 @@ def contexto_manipulacao_arquivo_criar(caminho_arquivo):
 
 
 @fixture
-def contexto_manipulacao_arquivo_copiar(caminho_arquivo, caminho_pasta_exemplo):
+def contexto_manipulacao_arquivo_copiar(
+    caminho_arquivo, caminho_pasta_exemplo
+):
     arquivo = caminho_arquivo
     if not arquivo_existente(arquivo) == True:
         criar_arquivo_texto(arquivo)
@@ -346,7 +367,9 @@ def contexto_manipulacao_arquivo_copiar(caminho_arquivo, caminho_pasta_exemplo):
 
 
 @fixture
-def contexto_manipulacao_arquivo_criar_2(caminho_raiz, arquivo_exemplo, arquivo_exemplo_2):
+def contexto_manipulacao_arquivo_criar_2(
+    caminho_raiz, arquivo_exemplo, arquivo_exemplo_2
+):
     caminho = caminho_raiz
     nome_arquivo = arquivo_exemplo
     novo_nome = arquivo_exemplo_2
