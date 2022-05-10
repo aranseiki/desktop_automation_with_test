@@ -25,7 +25,7 @@ from lib.python_utils import (
     ler_variavel_ambiente,
     logger,
     pasta_existente,
-    pasta_vazia,
+    pasta_esta_vazia,
     recortar,
     renomear,
     retornar_arquivos_em_pasta,
