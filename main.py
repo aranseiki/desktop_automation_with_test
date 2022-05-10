@@ -24,8 +24,8 @@ from lib.python_utils import (
     formatar_log,
     ler_variavel_ambiente,
     logger,
-    pasta_existente,
     pasta_esta_vazia,
+    pasta_existente,
     recortar,
     renomear,
     retornar_arquivos_em_pasta,
@@ -35,6 +35,7 @@ from lib.python_utils import (
 
 def cls():
     import os
+
     os.system('cls')
 
 

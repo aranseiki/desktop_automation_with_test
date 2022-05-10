@@ -91,7 +91,8 @@ def pasta_existente(caminho):
 
 def pasta_esta_vazia(caminho):
     from pathlib import Path
-    lista_arquivos_pastas = list(Path(caminho).glob('**/*')) 
+
+    lista_arquivos_pastas = list(Path(caminho).glob('**/*'))
     if len(lista_arquivos_pastas) == 0:
         return True
     else:
@@ -127,6 +128,7 @@ def criar_arquivo_texto(caminho, data='', encoding='utf8'):
 
 def coletar_nome_arquivo(caminho):
     from pathlib import Path
+
     if Path(caminho).exists() == True:
         arquivo = Path(caminho).stem
     return arquivo
@@ -134,6 +136,7 @@ def coletar_nome_arquivo(caminho):
 
 def coletar_extensao_arquivo(caminho):
     from pathlib import Path
+
     if Path(caminho).exists() == True:
         arquivo = Path(caminho).suffix
     return arquivo
