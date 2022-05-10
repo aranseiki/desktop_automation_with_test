@@ -89,6 +89,15 @@ def pasta_existente(caminho):
     return Path(caminho).exists()
 
 
+def pasta_esta_vazia(caminho):
+    from pathlib import Path
+    lista_arquivos_pastas = list(Path(caminho).glob('**/*')) 
+    if len(lista_arquivos_pastas) == 0:
+        return True
+    else:
+        return False
+
+
 def arquivo_existente(caminho):
     from pathlib import Path
 

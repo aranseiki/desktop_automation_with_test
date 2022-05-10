@@ -18,6 +18,7 @@ from lib.python_utils import (
     ler_variavel_ambiente,
     logger,
     pasta_existente,
+    pasta_esta_vazia,
     recortar,
     renomear,
     retornar_arquivos_em_pasta,
@@ -202,6 +203,14 @@ def test_quando_informar_uma_pasta_existente_e_um_filtro_de_pesquisa_deve_retorn
     assert arquivo_copiado[0] == Path(caminho_pasta_exemplo) / primeiro_arquivo
 
 
+@mark.pastas
+def test_quando_informar_o_nome_de_uma_pasta_vazia_deve_retornar_true(
+    contexto_manipulacao_pastas_vazias_criar, caminho_pasta_exemplo
+):
+    caminho = caminho_pasta_exemplo
+    assert pasta_esta_vazia(caminho) == True
+
+
 @mark.arquivos
 def test_quando_informar_um_arquivo_de_texto_txt_deve_retornar_o_conteudo_dele():
     caminho = 'tests/arquivo_test.txt'
@@ -345,4 +354,4 @@ def test_ao_informar_um_determinado_parametro_deve_retornar_a_data_atual():
 def test_ao_informar_um_determinado_parametro_deve_retornar_a_hora_atual():
     parametro = '%H'
     hora_teste = retornar_data_hora_atual(parametro)
-    assert hora_teste == '10'
+    assert hora_teste == '11'

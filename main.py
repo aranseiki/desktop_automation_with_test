@@ -25,6 +25,7 @@ from lib.python_utils import (
     ler_variavel_ambiente,
     logger,
     pasta_existente,
+    pasta_vazia,
     recortar,
     renomear,
     retornar_arquivos_em_pasta,
@@ -36,7 +37,6 @@ def cls():
     import os
     os.system('cls')
 
-# CRIAR UMA FUNÇÃO QUE VERIFICA SE A PASTA ESTÁ VAZIA
 
 """
 
@@ -56,10 +56,12 @@ executavel = ler_variavel_ambiente(nome_variavel='executavel')
 
 """
 
-
+"""
 caminho = './exemplo'
 pasta_existente(caminho)
 criar_pasta(caminho)
+
+pasta_vazia(caminho)
 
 caminho = './'
 nome_atual = 'exemplo'
@@ -74,9 +76,9 @@ caminho_destino = './exemplo2'
 copiar_pasta(pasta, caminho_destino)
 
 caminho_atual = './exemplo'
-caminho_novo = './exemplo/exemplo2'
-recortar(caminho_atual, caminho_novo) # Erro
-
+caminho_novo = './exemplo2/exemplo'
+recortar(caminho_atual, caminho_novo)
+"""
 
 """
 caminho = './exemplo.txt'
@@ -99,9 +101,9 @@ nome_atual = 'exemplo.txt'
 novo_nome = 'exemplo_novo.txt'
 renomear(caminho, nome_atual, novo_nome)
 
-caminho_atual = './exemplo'
-caminho_novo = './exemplo2'
-recortar(caminho_atual, caminho_novo) # erro
+caminho_atual = './exemplo.txt'
+caminho_novo = './exemplo/exemplo.txt'
+recortar(caminho_atual, caminho_novo)
 retornar_arquivos_em_pasta(caminho, filtro='**/*')
 """
 

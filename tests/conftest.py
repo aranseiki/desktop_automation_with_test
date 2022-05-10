@@ -233,7 +233,9 @@ def contexto_manipulacao_pastas_vazias_excluir(caminho_pasta_exemplo):
 @fixture
 def contexto_manipulacao_pastas_vazias_criar(caminho_pasta_exemplo):
     caminho = caminho_pasta_exemplo
-    yield criar_pasta(caminho)
+    criar_pasta(caminho)
+    yield
+    excluir_pasta(caminho, vazia=True)
 
 
 @fixture
