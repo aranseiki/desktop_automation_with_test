@@ -48,7 +48,7 @@ def test_quando_a_aplicacao_iniciar_o_caminho_do_objeto_application_deve_ser_igu
 def test_quando_a_aplicacao_encerrar_deve_finalizar_o_processo(
     iniciar_app_test, encerrar_app_test
 ):
-    app_iniciado = iniciar_app_test
+    iniciar_app_test
     app_encerrado = encerrar_app_test
     assert app_encerrado == True
 
@@ -132,15 +132,6 @@ def test_quando_a_janela_estiver_maximizada_deve_retornar_estado_maximizada(
     situacao = coletar_situacao_janela_maximizada_test
     # breakpoint()
     assert situacao == 'maximizado'
-
-
-@mark.mouseclicker
-def test_quando_a_janela_estiver_maximizada_deve_retornar_estado_maximizada(
-    contexto_mouseclicker, coletar_situacao_janela_restaurada_test
-):
-    situacao = coletar_situacao_janela_restaurada_test
-    # breakpoint()
-    assert situacao == 'normal'
 
 
 @mark.mouseclicker
